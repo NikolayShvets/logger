@@ -1,0 +1,153 @@
+2020-06-15 05:45:11,020 SimplexLogger Logger - INFO:User Nikolay Shvets(Admin) ==> get((<Api.Todo object at 0x7fef6e7beb38>,),{'id': 18}) ==> <task 'eating'>
+2020-06-15 05:45:11,020 SimplexLogger Logger - ERROR:Exception
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/Projects/App/Logger.py", line 65, in wrapper
+    self.cursor.executemany("INSERT INTO exceptions VALUES (?,?,?,?,?,?,?,?)", logRecord)
+sqlite3.OperationalError: table exceptions has 7 columns but 8 values were supplied
+2020-06-15 05:45:11,161 werkzeug _internal - INFO:127.0.0.1 - - [15/Jun/2020 05:45:11] "GET /todo_list/18 HTTP/1.1" 200 -
+2020-06-15 05:46:12,559 werkzeug _internal - INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-06-15 05:46:15,711 SimplexLogger Logger - INFO:User Nikolay Shvets(Admin) ==> get((<Api.Todo object at 0x7faed5e1e828>,),{'id': 18}) ==> <task 'eating'>
+2020-06-15 05:46:15,711 SimplexLogger Logger - ERROR:Exception
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/Projects/App/Logger.py", line 65, in wrapper
+    self.cursor.executemany("INSERT INTO exceptions VALUES (?,?,?,?,?,?,?)", logRecord)
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 7, and there are 8 supplied.
+2020-06-15 05:46:15,785 werkzeug _internal - INFO:127.0.0.1 - - [15/Jun/2020 05:46:15] "GET /todo_list/18 HTTP/1.1" 200 -
+2020-06-15 05:48:11,507 werkzeug _internal - INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-06-15 05:48:13,812 SimplexLogger Logger - INFO:User Nikolay Shvets(Admin) ==> get((<Api.Todo object at 0x7f519c74b860>,),{'id': 18}) ==> <task 'eating'>
+2020-06-15 05:48:13,812 SimplexLogger Logger - ERROR:Exception
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/Projects/App/Logger.py", line 66, in wrapper
+    self.cursor.executemany("INSERT INTO exceptions VALUES (?,?,?,?,?,?,?,?)", logRecord)
+sqlite3.OperationalError: table exceptions has 7 columns but 8 values were supplied
+2020-06-15 05:48:13,875 werkzeug _internal - INFO:127.0.0.1 - - [15/Jun/2020 05:48:13] "GET /todo_list/18 HTTP/1.1" 200 -
+2020-06-15 05:48:51,029 werkzeug _internal - INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-06-15 05:48:54,410 SimplexLogger Logger - INFO:User Nikolay Shvets(Admin) ==> get((<Api.Todo object at 0x7f705d090780>,),{'id': 18}) ==> <task 'eating'>
+2020-06-15 05:48:54,519 werkzeug _internal - INFO:127.0.0.1 - - [15/Jun/2020 05:48:54] "GET /todo_list/18 HTTP/1.1" 200 -
+2020-06-15 05:50:18,541 werkzeug _internal - INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-06-15 05:50:40,305 SimplexLogger Logger - INFO:User Nikolay Shvets(Admin) ==> post((<Api.TodoList object at 0x7fcf91f1ed68>,),{}) ==> (<task 'driving'>, 201)
+2020-06-15 05:50:40,370 werkzeug _internal - INFO:127.0.0.1 - - [15/Jun/2020 05:50:40] "POST /todo_list/ HTTP/1.1" 201 -
+2020-06-15 05:51:01,319 SimplexLogger Logger - ERROR:Exception
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1284, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 590, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UniqueViolation: ОШИБКА:  повторяющееся значение ключа нарушает ограничение уникальности "Todos_task_key"
+DETAIL:  Ключ "(task)=(coding)" уже существует.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/Projects/App/Logger.py", line 52, in wrapper
+    res = func(*args, **kwargs)
+  File "/home/nikonikoni/work/Projects/App/Api.py", line 77, in post
+    return tm.create(api.payload), 201
+  File "/home/nikonikoni/work/Projects/App/Api.py", line 58, in create
+    db.session.commit()
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/scoping.py", line 163, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 1042, in commit
+    self.transaction.commit()
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 504, in commit
+    self._prepare_impl()
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 483, in _prepare_impl
+    self.session.flush()
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2523, in flush
+    self._flush(objects)
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2664, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 69, in __exit__
+    exc_value, with_traceback=exc_tb,
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 178, in raise_
+    raise exception
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2624, in _flush
+    flush_context.execute()
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/unitofwork.py", line 422, in execute
+    rec.execute(self)
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/unitofwork.py", line 589, in execute
+    uow,
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/persistence.py", line 245, in save_obj
+    insert,
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/persistence.py", line 1136, in _emit_insert_statements
+    statement, params
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1020, in execute
+    return meth(self, multiparams, params)
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1139, in _execute_clauseelement
+    distilled_params,
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1324, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1518, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 178, in raise_
+    raise exception
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1284, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 590, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) ОШИБКА:  повторяющееся значение ключа нарушает ограничение уникальности "Todos_task_key"
+DETAIL:  Ключ "(task)=(coding)" уже существует.
+
+[SQL: INSERT INTO "Todos" (task) VALUES (%(task)s) RETURNING "Todos".id]
+[parameters: {'task': 'coding'}]
+(Background on this error at: http://sqlalche.me/e/gkpj)
+2020-06-15 05:51:01,461 werkzeug _internal - INFO:127.0.0.1 - - [15/Jun/2020 05:51:01] "POST /todo_list/ HTTP/1.1" 200 -
+2020-06-15 05:52:00,234 SimplexLogger Logger - INFO:User Nikolay Shvets(Admin) ==> post((<Api.TodoList object at 0x7fcf913d1908>,),{}) ==> (<task 'runing'>, 201)
+2020-06-15 05:52:00,301 werkzeug _internal - INFO:127.0.0.1 - - [15/Jun/2020 05:52:00] "POST /todo_list/ HTTP/1.1" 201 -
+2020-06-15 05:52:10,789 SimplexLogger Logger - INFO:User Nikolay Shvets(Admin) ==> get((<Api.TodoList object at 0x7fcf913d1d68>,),{}) ==> [<task 'coding'>, <task 'eating'>, <task 'driving'>, <task 'runing'>]
+2020-06-15 05:52:10,875 werkzeug _internal - INFO:127.0.0.1 - - [15/Jun/2020 05:52:10] "GET /todo_list/ HTTP/1.1" 200 -
+2020-06-15 05:52:44,078 SimplexLogger Logger - INFO:User Nikolay Shvets(Admin) ==> put((<Api.Todo object at 0x7fcf913d19b0>,),{'id': 21}) ==> <task 'wertyui'>
+2020-06-15 05:52:44,126 werkzeug _internal - INFO:127.0.0.1 - - [15/Jun/2020 05:52:44] "PUT /todo_list/21 HTTP/1.1" 200 -
+2020-06-15 05:52:52,435 SimplexLogger Logger - INFO:User Nikolay Shvets(Admin) ==> get((<Api.Todo object at 0x7fcf913d1d30>,),{'id': 21}) ==> <task 'wertyui'>
+2020-06-15 05:52:52,511 werkzeug _internal - INFO:127.0.0.1 - - [15/Jun/2020 05:52:52] "GET /todo_list/21 HTTP/1.1" 200 -
+2020-06-15 05:53:04,503 SimplexLogger Logger - ERROR:Exception
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2039, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/Projects/App/Logger.py", line 52, in wrapper
+    res = func(*args, **kwargs)
+  File "/home/nikonikoni/work/Projects/App/Api.py", line 94, in delete
+    return tm.delete(id), 204
+  File "/home/nikonikoni/work/Projects/App/Api.py", line 44, in delete
+    db.session.delete(todo)
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/scoping.py", line 163, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2042, in delete
+    exc.UnmappedInstanceError(instance), replace_context=err,
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 178, in raise_
+    raise exception
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2020-06-15 05:53:04,561 werkzeug _internal - INFO:127.0.0.1 - - [15/Jun/2020 05:53:04] "DELETE /todo_list/0 HTTP/1.1" 200 -
+2020-06-15 05:53:09,417 SimplexLogger Logger - ERROR:Exception
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2039, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/Projects/App/Logger.py", line 52, in wrapper
+    res = func(*args, **kwargs)
+  File "/home/nikonikoni/work/Projects/App/Api.py", line 94, in delete
+    return tm.delete(id), 204
+  File "/home/nikonikoni/work/Projects/App/Api.py", line 44, in delete
+    db.session.delete(todo)
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/scoping.py", line 163, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2042, in delete
+    exc.UnmappedInstanceError(instance), replace_context=err,
+  File "/home/nikonikoni/work/Projects/App/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 178, in raise_
+    raise exception
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2020-06-15 05:53:09,495 werkzeug _internal - INFO:127.0.0.1 - - [15/Jun/2020 05:53:09] "DELETE /todo_list/100 HTTP/1.1" 200 -
+2020-06-15 05:53:14,229 SimplexLogger Logger - INFO:User Nikolay Shvets(Admin) ==> delete((<Api.Todo object at 0x7fcf9133c5c0>,),{'id': 21}) ==> (None, 204)
+2020-06-15 05:53:14,328 werkzeug _internal - INFO:127.0.0.1 - - [15/Jun/2020 05:53:14] "DELETE /todo_list/21 HTTP/1.1" 204 -
