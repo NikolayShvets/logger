@@ -5,11 +5,12 @@
 """
 import logging
 import logging.config
-import os
-import sys
+from loggerThread import *
 import sqlite3
 from functools import wraps
 from datetime import datetime
+
+@class_thread_decroator
 class Logger:
     """
     Класс Logger - декоратор, оборачивающий вызываемые пользователем функции,
@@ -32,6 +33,7 @@ class Logger:
         self.cursor = self.conn.cursor()
         self.debug_columns_names = ["status", "function_result", "message", "traceback"]
 
+    #@logger_thread
     def __write_log__(self, values: list, table_name: str):
         """
         Записывает переданные значения в переданную таблицу базы данных.
