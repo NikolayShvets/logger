@@ -6,7 +6,7 @@ def logger_thread(func):
     :param func: переданная функция
     :return: декорированная функция func
     """
-    def logger_thread_wrapper(*args, **kwargs):
+    def logger_thread_wrapper(*args: tuple, **kwargs: list):
         """
         Создает новый поток и помещает туда переданную функцию
         :param args: кортеж неименованных аргументов

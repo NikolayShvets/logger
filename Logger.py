@@ -69,7 +69,7 @@ class Logger:
         :return: обёртка над оборачиваемой функцией
         """
         @wraps(func)
-        def wrapper(*args: tuple, **kwargs: dict):
+        def wrapper(*args: tuple, **kwargs: list):
             """
             Обертка над переданной функцией func.
             :param args: кортеж неименованных аргументов.
