@@ -15,7 +15,7 @@ class Logger:
     Класс Logger - декоратор, оборачивающий вызываемые пользователем функции,
     добавляя функционал логгирования действий переданного пользователя.
     """
-    def __init__(self, username: str, rights: str):
+    def __init__(self, username: str, rights: str, code_only: bool = True):
         """
         Конструктор функтора Logger. Инициализирует и агрегирует объект класса <logging>,
         настраивая его в соответсвии с файлом конфигурации  <LoggerConfig.conf>.
@@ -27,8 +27,38 @@ class Logger:
         self.simplexLogger = logging.getLogger("SimplexLogger")
         self.username = username
         self.rights = rights
+        self.code_only = code_only
         self.conn = sqlite3.connect("logJournal.db", check_same_thread=False)
         self.cursor = self.conn.cursor()
+        self.debug_columns_names = ["status", "function_result", "message", "traceback"]
+
+    def __write_log__(self, values: list, table_name: str):
+        """
+        Записывает переданные значения в переданную таблицу базы данных.
+        :param values: значения на запись в базу данных.
+        :param table_name: имя таблицы, в которую производится запись.
+        :return: None.
+        """
+
+        if table_name == "DebugLog":
+            record = f"INSERT INTO {table_name} ("
+            for column_name in self.debug_columns_names:
+                record += column_name
+                if self.debug_columns_names.index(column_name) != len(self.debug_columns_names) - 1:
+                    record += ","
+                else:
+                    record += ") VALUES ("
+                    for i in range(len(values[0]) - 1):
+                        record += "?,"
+                    record += "?)"
+        else:
+            record = f"INSERT INTO {table_name} VALUES ("
+            for i in range(len(values[0]) - 1):
+                record += "?,"
+            record += "?)"
+        print(record)
+        self.cursor.executemany(record, values)
+        self.conn.commit()
 
     def __call__(self, func):
         """
@@ -37,11 +67,11 @@ class Logger:
         :return: обёртка над оборачиваемой функцией
         """
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: tuple, **kwargs: dict):
             """
             Обертка над переданной функцией func.
-            :param args: спиоск неименованных аргументов.
-            :param kwargs: словарь именованных аргументов.
+            :param args: кортеж неименованных аргументов.
+            :param kwargs: список именованных аргументов.
             :return: результат работы оборачиваемой функции func
             """
 
@@ -51,36 +81,24 @@ class Logger:
                     (
                         "DEBUG",
                         "SUCCESS " + str(res),
-                        "some info",
+                        "message",
                         "OK"
                     )
                 ]
-                self.cursor.executemany(
-                    "INSERT INTO DebugLog \
-                        (status, function_result, message, traceback) \
-                        VALUES (?,?,?,?)",
-                    log_record
-                )
-                self.conn.commit()
+                self.__write_log__(log_record, "DebugLog",)
+                self.cursor.execute("SELECT MAX(id) FROM DebugLog")
                 log_record = [
                     (
                         datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                        self.simplexLogger.name,
                         func.__module__,
                         self.username,
                         self.rights,
                         func.__name__,
                         func.__doc__,
-                        str(self.cursor.lastrowid)
+                        str(self.cursor.fetchall()[0])
                     )
                 ]
-                self.cursor.executemany(
-                    "INSERT INTO Journal \
-                            (date, logger_name, module_name, user_name, user_rights, \
-                            function_name, function_description, log) \
-                            VALUES (?,?,?,?,?,?,?,?)",
-                    log_record)
-                self.conn.commit()
+                self.__write_log__(log_record, "Journal")
                 self.simplexLogger.info(f"User {self.username}({self.rights}) ==> {func.__name__}({args},{kwargs}) ==> {res}")
                 return res
             except Exception as e:
@@ -93,32 +111,20 @@ class Logger:
                         "Exception: "
                     )
                 ]
-                self.cursor.executemany(
-                    "INSERT INTO DebugLog \
-                        (status, function_result, message, traceback) \
-                        VALUES (?,?,?,?)",
-                    log_record
-                )
-                self.conn.commit()
+                self.__write_log__(log_record, "DebugLog")
+                self.cursor.execute("SELECT MAX(id) FROM DebugLog")
                 log_record = [
                     (
                         datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                        self.simplexLogger.name,
                         func.__module__,
                         self.username,
                         self.rights,
                         func.__name__,
                         func.__doc__,
-                        str(self.cursor.lastrowid)
+                        str(self.cursor.fetchall()[0])
                     )
                 ]
-                self.cursor.executemany(
-                    "INSERT INTO Journal \
-                            (date, logger_name, module_name, user_name, user_rights, \
-                            function_name, function_description, log) \
-                            VALUES (?,?,?,?,?,?,?,?)",
-                    log_record)
-                self.conn.commit()
+                self.__write_log__(log_record, "Journal")
         return wrapper
 
 
