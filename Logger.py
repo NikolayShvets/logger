@@ -5,6 +5,8 @@
 """
 import logging
 import logging.config
+import traceback
+import sys
 from loggerThread import *
 import sqlite3
 from functools import wraps
@@ -16,7 +18,7 @@ class Logger:
     Класс Logger - декоратор, оборачивающий вызываемые пользователем функции,
     добавляя функционал логгирования действий переданного пользователя.
     """
-    def __init__(self, username: str, rights: str, code_only: bool = True):
+    def __init__(self, username: str, rights: str, code_only: bool = False):
         """
         Конструктор функтора Logger. Инициализирует и агрегирует объект класса <logging>,
         настраивая его в соответсвии с файлом конфигурации  <LoggerConfig.conf>.
@@ -31,9 +33,8 @@ class Logger:
         self.code_only = code_only
         self.conn = sqlite3.connect("logJournal.db", check_same_thread=False)
         self.cursor = self.conn.cursor()
-        self.debug_columns_names = ["status", "function_result", "message", "traceback"]
+        self.debug_columns_names = ["function_result", "message", "traceback"]
 
-    #@logger_thread
     def __write_log__(self, values: list, table_name: str):
         """
         Записывает переданные значения в переданную таблицу базы данных.
@@ -78,13 +79,15 @@ class Logger:
             """
 
             try:
-                res = func(*args, **kwargs)
+                log_res = res = func(*args, **kwargs)
+                if self.code_only:
+                    log_res = res[1]
+                print(func.__class__.__name__)
                 log_record = [
                     (
-                        "DEBUG",
-                        "SUCCESS " + str(res),
-                        "message",
-                        "OK"
+                        "SUCCESS " + str(log_res),
+                        "Without any errors",
+                        str(traceback.format_exc(2))
                     )
                 ]
                 self.__write_log__(log_record, "DebugLog",)
@@ -97,6 +100,7 @@ class Logger:
                         self.rights,
                         func.__name__,
                         func.__doc__,
+                        "OK",
                         str(self.cursor.fetchall()[0])
                     )
                 ]
@@ -105,12 +109,12 @@ class Logger:
                 return res
             except Exception as e:
                 self.simplexLogger.exception("Exception")
+                exc_type, exc_value, exc_tb = sys.exc_info()
                 log_record = [
                     (
-                        "ERROR",
                         "FAILRUE",
-                        "some info",
-                        "Exception: "
+                        "There are some errors...",
+                        str(traceback.format_exc(2)),
                     )
                 ]
                 self.__write_log__(log_record, "DebugLog")
@@ -123,6 +127,7 @@ class Logger:
                         self.rights,
                         func.__name__,
                         func.__doc__,
+                        "ERROR",
                         str(self.cursor.fetchall()[0])
                     )
                 ]
