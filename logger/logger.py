@@ -9,7 +9,6 @@ from logger import loggerThread
 from functools import wraps
 from logger.models.logTablesModels import Journal, DebugLog, engine, Session
 from datetime import datetime
-import threading
 
 
 class logger:
@@ -18,7 +17,7 @@ class logger:
     добавляя функционал логгирования действий переданного пользователя.
     """
 
-    def __init__(self, user_name: str, user_rights: str, code_only: bool = False):
+    def __init__(self, user_name: str, user_rights: str, code_only: bool = False) -> None:
         """
         Конструктор функтора Logger. Инициализирует и агрегирует объект класса <logging>,
         настраивая его в соответсвии с файлом конфигурации  <LoggerConfig.conf>.
@@ -31,14 +30,22 @@ class logger:
         self.user_name = user_name
         self.user_rights = user_rights
 
-
     @loggerThread.logger_thread
-    def __write_log__(self, table_name: str, **kwargs):
+    def __write_log__(self, table_name: str, **kwargs: list) -> None:
+        """
+        Метод, открывающий покдлючение к базе данных логера
+        и записывающий в базу лог
+        :param table_name: Имя таблицы, в которую осуществляется запись
+        :param kwargs: list
+        :return: None
+        """
+
         DBSession = Session(bind=engine)
         if table_name == "DebugLog":
             DBSession.add(DebugLog(**kwargs))
         elif table_name == "Journal":
-            DBSession.add(Journal(**kwargs))
+            id = max(DBSession.query(DebugLog.id))
+            DBSession.add(Journal(log_id=id, **kwargs))
         DBSession.commit()
 
     def __call__(self, func):
@@ -73,14 +80,13 @@ class logger:
                                    user_rights=self.user_rights,
                                    function_name=func.__name__,
                                    function_description=func.__doc__,
-                                   status="OK",
-                                   log_id=0
+                                   status="OK"
                                    )
                 return res
             except Exception as e:
                 self.__write_log__("DebugLog",
                                    function_result="FAILRUE",
-                                   message="Without any errors",
+                                   message="There are some errors",
                                    traceback=str(traceback.format_exc(2))
                                    )
                 self.__write_log__("Journal",
@@ -90,8 +96,7 @@ class logger:
                                    user_rights=self.user_rights,
                                    function_name=func.__name__,
                                    function_description=func.__doc__,
-                                   status="OK",
-                                   log_id=0
+                                   status="ERRROR"
                                    )
 
         return wrapper

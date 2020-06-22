@@ -1,12 +1,23 @@
+"""
+Модуль, инициализирующий модели таблиц логгера
+"""
+
 from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from config import SQLALCHEMY_DATABASE_URI
 
-engine = create_engine('postgresql://nikonikoni:niko1324@localhost:5432/Sberbank', echo=False)
+engine = create_engine(SQLALCHEMY_DATABASE_URI, echo=False)
 Base = declarative_base(bind=engine)
 Session = sessionmaker()
 
 class Journal(Base):
+    """
+    Модель таблицы журнала. В таблицу заносятся:
+    дата, имя модуля, имя пользователя, права пльзователя, имя функции, описание функции,
+    статус операции, id записи лога, соответсвубщие вызванной функции
+    """
+
     __tablename__ = "Journal"
     id = Column('id', Integer, primary_key=True, autoincrement=True)
     date = Column('date', String, nullable=False)
@@ -18,15 +29,14 @@ class Journal(Base):
     status = Column('status', String, nullable=False)
     log_id = Column(Integer, ForeignKey("DebugLog.id"))
 
-    def __init__(self, user_name, user_rights):
-        self.user_name = user_name
-        self.user_rights = user_rights
-
-    def __repr__(self):
-        return f"<User({self.user_name}, {self.user_rights})>"
-
 
 class DebugLog(Base):
+    """
+    Модель таблицы журнала. В таблицу заносятся:
+    результат функции, сообщение, трассировщик ошибки, соответсвующие
+    вызванной функци
+    """
+
     __tablename__ = "DebugLog"
     id = Column('id', Integer, primary_key=True, autoincrement=True)
     function_result = Column('function_result', String, nullable=False)
