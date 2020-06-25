@@ -1,5 +1,4 @@
 import threading
-import sys
 
 
 def logger_thread(func):
@@ -14,7 +13,7 @@ def logger_thread(func):
         Создает новый поток и помещает туда переданную функцию
         :param args: кортеж неименованных аргументов
         :param kwargs: список именованных аргументов
-        :return: обертка над функцией func
+        :return: обертка над переданной функцией func
         """
         current_thread = threading.Thread(target=func, args=args, kwargs=kwargs, name="logger_db_thread")
         current_thread.start()
