@@ -21,8 +21,8 @@ class LogJournal(Base):
     user_name = Column('user_name', String, nullable=True)
     user_rights = Column('user_rights', String, nullable=True)
     function_name = Column('function_name', String, nullable=False)
-    function_description = Column('function_description', String, default="Без описания")
-    function_result_type = Column('function_result_type', String, nullable=False)
+    function_description = Column('function_description', String, nullable=True)
+    function_result_type = Column('function_result_type', String, nullable=True)
     message = Column('message', String, default="Код не обработан")
     traceback = Column('traceback', String, nullable=True)
 

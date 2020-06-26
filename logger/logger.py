@@ -6,7 +6,7 @@
 """
 
 from logger import loggerThread
-from logger.strlogger import strlogger
+from logger.strlogger import strlogger, logger_dict
 from functools import wraps
 from logger.models.logTablesModels import LogJournal, Session, tracing_depth
 from datetime import datetime
@@ -14,9 +14,9 @@ import traceback
 import re
 
 
-class logger:
+class Logger:
     @loggerThread.logger_thread
-    def write_log(**kwargs: list) -> None:
+    def write_log(**kwargs) -> None:
         """
         Метод, открывающий покдлючение к базе данных логера
         и записывающий лог в базу данных
@@ -25,11 +25,12 @@ class logger:
         """
 
         DBSession = Session()
+        print(kwargs)
         DBSession.add(LogJournal(**kwargs))
         DBSession.commit()
 
     @staticmethod
-    def strlog(message: str, level: str = "DEBUG", exc_info=False):
+    def strlog(message: str, level: str = "DEBUG", exc_info: bool = False):
         """
         Метод для логгирования внутри оборачиваемых функций.
 
@@ -42,17 +43,7 @@ class logger:
         if exc_info:
             strlogger.exception(message)
             return
-        if level == "DEBUG":
-            strlogger.debug(message)
-        elif level == "INFO":
-            strlogger.info(message)
-        elif level == "WARNING":
-            strlogger.warning(message)
-        elif level == "ERROR":
-            strlogger.error(message)
-        elif level == "CRITICAL":
-            strlogger.critical(message)
-
+        logger_dict[level](message)
 
     @staticmethod
     def build_log_with_message(session: dict):
@@ -61,6 +52,7 @@ class logger:
         :param session: словарь сессии flask
         :return: декоратор над переданной функцией
         """
+
         def build_log(func):
             @wraps(func)
             def build_log_wrapper(*args: tuple, **kwargs: list):
@@ -74,35 +66,23 @@ class logger:
                 data = {}
                 data.update(dict(session))
                 data.update(func.__apidoc__["responses"])
-                print(data)
+                message = {
+                    "date": str(datetime.now().strftime("%d/%m/%Y %H:%M:%S")),
+                    "module_name": func.__module__,
+                    "user_name": data.get("username"),
+                    "user_rights": data.get("rights"),
+                    "function_name": func.__name__,
+                    "function_description": re.sub(r'\s+', ' ', str(func.__doc__).replace('\n', '')).replace(' ', '', 1),
+                }
                 try:
                     result = func(*args, **kwargs)
-                    logger.write_log(
-                        date=datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                        module_name=func.__module__,
-                        user_name=data.get("username"),
-                        user_rights=data.get("rights"),
-                        function_name=func.__name__,
-                        function_description=re.sub(r'\s+', ' ', str(func.__doc__).replace('\n', '')).replace(' ', '',
-                                                                                                              1),
-                        function_result_type=str(type(result)),
-                        message=data.get(result[-1])[0],
-                    )
+                    message.update(function_result_type=str(type(result)), message=data.get(result[-1])[0])
+                    Logger.write_log(**message)
                     return result
+
                 except Exception as e:
-                    print(Exception)
-                    logger.write_log(
-                        date=datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                        module_name=func.__module__,
-                        user_name=data.get("username"),
-                        user_rights=data.get("rights"),
-                        function_name=func.__name__,
-                        function_description=re.sub(r'\s+', ' ', str(func.__doc__).replace('\n', '')).replace(' ', '',
-                                                                                                              1),
-                        function_result_type="None",
-                        message="Необработанная ошибка сервера",
-                        traceback=str(traceback.format_exc(tracing_depth))
-                    )
+                    message.update(message="Необработанная ошибка сервера", traceback=str(traceback.format_exc(tracing_depth)))
+                    Logger.write_log(**message)
 
             return build_log_wrapper
 
