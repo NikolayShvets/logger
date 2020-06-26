@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-"""аттрибут __doc__ python
-Модуль логгирования. Создает логгер - декоратор, записывающий лог
-в базу данных, по указанному URI в файле настроек <config.py>
+"""
+Модуль логгирования. Инициализирует статический класс логгера
+с методом - декоратором, записывающим лог в базу данных, по указанному URI
+в файле настроек <config.py>
 """
 
 from logger import loggerThread
@@ -18,7 +19,7 @@ class logger:
     def write_log(**kwargs: list) -> None:
         """
         Метод, открывающий покдлючение к базе данных логера
-        и записывающий в базу лог
+        и записывающий лог в базу данных
         :param kwargs: list
         :return: None
         """
@@ -29,6 +30,13 @@ class logger:
 
     @staticmethod
     def strlog(message, level="DEBUG"):
+        """
+        Метод для логгирования внутри оборачиваемых функций.
+
+        :param message: строка сообщения
+        :param level: уровень сообщения
+        :return: None
+        """
         if level == "DEBUG":
             strlogger.debug(message)
         elif level == "INFO":
@@ -42,7 +50,12 @@ class logger:
 
 
     @staticmethod
-    def build_log_with_message(session):
+    def build_log_with_message(session: dict):
+        """
+        Метод, передающий сессиию flask в декортаор логгирования
+        :param session: словарь сессии flask
+        :return: декоратор над переданной функцией
+        """
         def build_log(func):
             @wraps(func)
             def build_log_wrapper(*args: tuple, **kwargs: list):
