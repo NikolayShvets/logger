@@ -29,14 +29,19 @@ class logger:
         DBSession.commit()
 
     @staticmethod
-    def strlog(message, level="DEBUG"):
+    def strlog(message: str, level: str = "DEBUG", exc_info=False):
         """
         Метод для логгирования внутри оборачиваемых функций.
 
+        :param exc_info: флаг исключения
         :param message: строка сообщения
         :param level: уровень сообщения
         :return: None
         """
+
+        if exc_info:
+            strlogger.exception(message)
+            return
         if level == "DEBUG":
             strlogger.debug(message)
         elif level == "INFO":
