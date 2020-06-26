@@ -1,1 +1,21 @@
 2020-06-26 17:09:34,726 logger.strlogger - ERROR:Сессия инициализирована!
+2020-06-26 17:40:23,834 logger.strlogger - ERROR:hello
+2020-06-26 17:52:09,898 logger.strlogger - ERROR:hello
+2020-06-26 17:52:09,898 logger.strlogger - ERROR:Exception: 
+2020-06-26 17:57:04,081 logger.strlogger - ERROR:hello
+2020-06-26 17:57:04,081 logger.strlogger - ERROR:Exception: 
+2020-06-26 17:58:20,292 logger.strlogger - ERROR:hello
+2020-06-26 17:58:20,293 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 159, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-26 18:00:11,455 logger.strlogger - DEBUG:hello
+2020-06-26 18:00:34,186 logger.strlogger - DEBUG:hello
+2020-06-26 18:00:34,186 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 159, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-26 18:01:14,358 logger.strlogger - DEBUG:hello
+2020-06-26 18:01:14,358 logger.strlogger - DEBUG:Exception, sorry: 
