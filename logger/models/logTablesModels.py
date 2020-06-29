@@ -23,7 +23,7 @@ class LogJournal(Base):
     function_name = Column('function_name', String, nullable=False)
     function_description = Column('function_description', String, nullable=True)
     function_result_type = Column('function_result_type', String, nullable=True)
-    message = Column('message', String, default="Код не обработан")
+    message = Column('message', String, nullable=True)
     traceback = Column('traceback', String, nullable=True)
 
 

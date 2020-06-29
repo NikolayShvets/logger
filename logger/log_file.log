@@ -559,3 +559,240 @@ Traceback (most recent call last):
   File "/home/nikonikoni/work/application/api.py", line 163, in get
     c = a/b
 ZeroDivisionError: division by zero
+2020-06-29 14:31:08,857 logger.strlogger - DEBUG:hello
+2020-06-29 14:31:08,893 logger.strlogger - INFO:hello
+2020-06-29 14:31:08,893 logger.strlogger - WARNING:hello
+2020-06-29 14:31:08,893 logger.strlogger - ERROR:hello
+2020-06-29 14:31:08,893 logger.strlogger - CRITICAL:hello
+2020-06-29 14:31:08,893 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 14:31:58,594 api - ERROR:Exception on /todo_list/22 [GET]
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/nikonikoni/work/application/venv/lib/python3.6/site-packages/flask_debugtoolbar/__init__.py", line 125, in dispatch_request
+    return view_func(**req.view_args)
+  File "/home/nikonikoni/work/application/venv/lib/python3.6/site-packages/flask_restplus/api.py", line 325, in wrapper
+    resp = resource(*args, **kwargs)
+  File "/home/nikonikoni/work/application/venv/lib/python3.6/site-packages/flask/views.py", line 89, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "/home/nikonikoni/work/application/venv/lib/python3.6/site-packages/flask_restplus/resource.py", line 44, in dispatch_request
+    resp = meth(*args, **kwargs)
+  File "/home/nikonikoni/work/application/venv/lib/python3.6/site-packages/flask_restplus/marshalling.py", line 243, in wrapper
+    resp = f(*args, **kwargs)
+  File "/home/nikonikoni/work/application/logger/logger.py", line 70, in build_log_wrapper
+    data.update(func.__apidoc__.get("responses")) #обработать геттером
+AttributeError: 'function' object has no attribute '__apidoc__'
+2020-06-29 14:51:30,498 logger.strlogger - DEBUG:hello
+2020-06-29 14:51:30,498 logger.strlogger - INFO:hello
+2020-06-29 14:51:30,498 logger.strlogger - WARNING:hello
+2020-06-29 14:51:30,498 logger.strlogger - ERROR:hello
+2020-06-29 14:51:30,498 logger.strlogger - CRITICAL:hello
+2020-06-29 14:51:30,498 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 14:53:32,149 logger.strlogger - DEBUG:hello
+2020-06-29 14:53:32,149 logger.strlogger - INFO:hello
+2020-06-29 14:53:32,149 logger.strlogger - WARNING:hello
+2020-06-29 14:53:32,149 logger.strlogger - ERROR:hello
+2020-06-29 14:53:32,150 logger.strlogger - CRITICAL:hello
+2020-06-29 14:53:32,150 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 14:54:14,375 logger.strlogger - DEBUG:hello
+2020-06-29 14:54:14,375 logger.strlogger - INFO:hello
+2020-06-29 14:54:14,375 logger.strlogger - WARNING:hello
+2020-06-29 14:54:14,375 logger.strlogger - ERROR:hello
+2020-06-29 14:54:14,375 logger.strlogger - CRITICAL:hello
+2020-06-29 14:54:14,376 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 14:55:09,153 logger.strlogger - DEBUG:hello
+2020-06-29 14:55:09,153 logger.strlogger - INFO:hello
+2020-06-29 14:55:09,153 logger.strlogger - WARNING:hello
+2020-06-29 14:55:09,153 logger.strlogger - ERROR:hello
+2020-06-29 14:55:09,153 logger.strlogger - CRITICAL:hello
+2020-06-29 14:55:09,153 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 14:56:53,560 logger.strlogger - DEBUG:hello
+2020-06-29 14:56:53,560 logger.strlogger - INFO:hello
+2020-06-29 14:56:53,561 logger.strlogger - WARNING:hello
+2020-06-29 14:56:53,561 logger.strlogger - ERROR:hello
+2020-06-29 14:56:53,561 logger.strlogger - CRITICAL:hello
+2020-06-29 14:56:53,561 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 14:59:16,608 logger.strlogger - DEBUG:hello
+2020-06-29 14:59:16,609 logger.strlogger - INFO:hello
+2020-06-29 14:59:16,609 logger.strlogger - WARNING:hello
+2020-06-29 14:59:16,609 logger.strlogger - ERROR:hello
+2020-06-29 14:59:16,609 logger.strlogger - CRITICAL:hello
+2020-06-29 14:59:16,609 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 15:00:10,173 logger.strlogger - DEBUG:hello
+2020-06-29 15:00:10,173 logger.strlogger - INFO:hello
+2020-06-29 15:00:10,173 logger.strlogger - WARNING:hello
+2020-06-29 15:00:10,173 logger.strlogger - ERROR:hello
+2020-06-29 15:00:10,173 logger.strlogger - CRITICAL:hello
+2020-06-29 15:00:10,173 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 15:01:31,405 logger.strlogger - DEBUG:hello
+2020-06-29 15:01:31,406 logger.strlogger - INFO:hello
+2020-06-29 15:01:31,406 logger.strlogger - WARNING:hello
+2020-06-29 15:01:31,406 logger.strlogger - ERROR:hello
+2020-06-29 15:01:31,406 logger.strlogger - CRITICAL:hello
+2020-06-29 15:01:31,406 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 15:02:08,037 logger.strlogger - DEBUG:hello
+2020-06-29 15:02:08,037 logger.strlogger - INFO:hello
+2020-06-29 15:02:08,037 logger.strlogger - WARNING:hello
+2020-06-29 15:02:08,037 logger.strlogger - ERROR:hello
+2020-06-29 15:02:08,037 logger.strlogger - CRITICAL:hello
+2020-06-29 15:02:08,037 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 15:02:31,608 logger.strlogger - DEBUG:hello
+2020-06-29 15:02:31,608 logger.strlogger - INFO:hello
+2020-06-29 15:02:31,608 logger.strlogger - WARNING:hello
+2020-06-29 15:02:31,608 logger.strlogger - ERROR:hello
+2020-06-29 15:02:31,608 logger.strlogger - CRITICAL:hello
+2020-06-29 15:02:31,608 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 15:07:01,801 logger.strlogger - DEBUG:hello
+2020-06-29 15:07:01,801 logger.strlogger - INFO:hello
+2020-06-29 15:07:01,801 logger.strlogger - WARNING:hello
+2020-06-29 15:07:01,801 logger.strlogger - ERROR:hello
+2020-06-29 15:07:01,801 logger.strlogger - CRITICAL:hello
+2020-06-29 15:07:01,801 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 15:08:16,740 logger.strlogger - DEBUG:hello
+2020-06-29 15:08:16,740 logger.strlogger - INFO:hello
+2020-06-29 15:08:16,740 logger.strlogger - WARNING:hello
+2020-06-29 15:08:16,740 logger.strlogger - ERROR:hello
+2020-06-29 15:08:16,740 logger.strlogger - CRITICAL:hello
+2020-06-29 15:08:16,740 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 15:09:19,820 logger.strlogger - DEBUG:hello
+2020-06-29 15:09:19,820 logger.strlogger - INFO:hello
+2020-06-29 15:09:19,820 logger.strlogger - WARNING:hello
+2020-06-29 15:09:19,820 logger.strlogger - ERROR:hello
+2020-06-29 15:09:19,820 logger.strlogger - CRITICAL:hello
+2020-06-29 15:09:19,820 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 15:15:36,466 logger.strlogger - DEBUG:hello
+2020-06-29 15:15:36,466 logger.strlogger - DEBUG:hello
+2020-06-29 15:15:36,466 logger.strlogger - DEBUG:hello
+2020-06-29 15:15:36,466 logger.strlogger - DEBUG:hello
+2020-06-29 15:15:36,467 logger.strlogger - DEBUG:hello
+2020-06-29 15:15:36,467 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 15:44:35,077 logger.strlogger - DEBUG:hello
+2020-06-29 15:44:35,077 logger.strlogger - DEBUG:hello
+2020-06-29 15:44:35,077 logger.strlogger - DEBUG:hello
+2020-06-29 15:44:35,077 logger.strlogger - DEBUG:hello
+2020-06-29 15:44:35,077 logger.strlogger - DEBUG:hello
+2020-06-29 15:44:35,077 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 15:46:04,615 logger.strlogger - DEBUG:hello
+2020-06-29 15:46:04,615 logger.strlogger - DEBUG:hello
+2020-06-29 15:46:04,615 logger.strlogger - DEBUG:hello
+2020-06-29 15:46:04,615 logger.strlogger - DEBUG:hello
+2020-06-29 15:46:04,615 logger.strlogger - DEBUG:hello
+2020-06-29 15:46:04,615 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 15:46:59,482 logger.strlogger - DEBUG:hello
+2020-06-29 15:46:59,482 logger.strlogger - DEBUG:hello
+2020-06-29 15:46:59,482 logger.strlogger - DEBUG:hello
+2020-06-29 15:46:59,482 logger.strlogger - DEBUG:hello
+2020-06-29 15:46:59,482 logger.strlogger - DEBUG:hello
+2020-06-29 15:46:59,482 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 15:48:41,705 logger.strlogger - DEBUG:hello
+2020-06-29 15:48:41,705 logger.strlogger - DEBUG:hello
+2020-06-29 15:48:41,705 logger.strlogger - DEBUG:hello
+2020-06-29 15:48:41,705 logger.strlogger - DEBUG:hello
+2020-06-29 15:48:41,705 logger.strlogger - DEBUG:hello
+2020-06-29 15:48:41,705 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 15:55:40,847 logger.strlogger - DEBUG:hello
+2020-06-29 15:55:40,847 logger.strlogger - DEBUG:hello
+2020-06-29 15:55:40,847 logger.strlogger - DEBUG:hello
+2020-06-29 15:55:40,847 logger.strlogger - DEBUG:hello
+2020-06-29 15:55:40,847 logger.strlogger - DEBUG:hello
+2020-06-29 15:55:40,847 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 15:56:40,671 logger.strlogger - DEBUG:hello
+2020-06-29 15:56:40,671 logger.strlogger - DEBUG:hello
+2020-06-29 15:56:40,671 logger.strlogger - DEBUG:hello
+2020-06-29 15:56:40,671 logger.strlogger - DEBUG:hello
+2020-06-29 15:56:40,671 logger.strlogger - DEBUG:hello
+2020-06-29 15:56:40,671 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero
+2020-06-29 15:57:18,247 logger.strlogger - DEBUG:hello
+2020-06-29 15:57:18,247 logger.strlogger - DEBUG:hello
+2020-06-29 15:57:18,247 logger.strlogger - DEBUG:hello
+2020-06-29 15:57:18,247 logger.strlogger - DEBUG:hello
+2020-06-29 15:57:18,247 logger.strlogger - DEBUG:hello
+2020-06-29 15:57:18,247 logger.strlogger - ERROR:Exception, sorry: 
+Traceback (most recent call last):
+  File "/home/nikonikoni/work/application/api.py", line 163, in get
+    c = a/b
+ZeroDivisionError: division by zero

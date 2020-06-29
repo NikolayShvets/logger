@@ -25,9 +25,13 @@ class Logger:
         """
 
         DBSession = Session()
-        print(kwargs)
-        DBSession.add(LogJournal(**kwargs))
-        DBSession.commit()
+        try:
+            DBSession.add(LogJournal(**kwargs))
+        except Exception as e:
+            DBSession.rollback()
+            raise
+        else:
+            DBSession.commit()
 
     @staticmethod
     def strlog(message: str, level: str = "DEBUG", exc_info: bool = False):
@@ -40,10 +44,14 @@ class Logger:
         :return: None
         """
 
-        if exc_info:
+        if not exc_info:
+            if level in logger_dict.keys():
+                logger_dict[level](message)
+            else:
+                logger_dict["DEBUG"](message)
+        else:
             strlogger.exception(message)
-            return
-        logger_dict[level](message)
+
 
     @staticmethod
     def build_log_with_message(session: dict):
@@ -65,7 +73,9 @@ class Logger:
 
                 data = {}
                 data.update(dict(session))
-                data.update(func.__apidoc__["responses"])
+                if hasattr(func, "__apidoc__"):
+                    data.update(func.__apidoc__.get("responses"))
+
                 message = {
                     "date": str(datetime.now().strftime("%d/%m/%Y %H:%M:%S")),
                     "module_name": func.__module__,
@@ -76,7 +86,17 @@ class Logger:
                 }
                 try:
                     result = func(*args, **kwargs)
-                    message.update(function_result_type=str(type(result)), message=data.get(result[-1])[0])
+                    tempmsg = ""
+                    try:
+                        tempmsg = data.get(result[-1])
+                        if tempmsg is not None:
+                            tempmsg = tempmsg[0]
+                        else:
+                            tempmsg = "Код HTTP статуса не был задокументирован."
+                    except Exception as e:
+                        tempmsg = "Функция не возвращает код HTTP статуса."
+                    finally:
+                        message.update(function_result_type=str(type(result)), message=tempmsg)
                     Logger.write_log(**message)
                     return result
 
