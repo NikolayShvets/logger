@@ -11,6 +11,7 @@ from functools import wraps
 from logger.models.logTablesModels import LogJournal, Session, tracing_depth
 from datetime import datetime
 import traceback
+from logger.custom_exceptions import *
 import re
 
 
@@ -54,7 +55,7 @@ class Logger:
 
 
     @staticmethod
-    def build_log_with_message(session: dict):
+    def info_log(session: dict):
         """
         Метод, передающий сессиию flask в декортаор логгирования
         :param session: словарь сессии flask
@@ -71,8 +72,10 @@ class Logger:
                 :return: результат работы оборачиваемой функции func
                 """
 
+                print(func.__name__)
                 data = {}
-                data.update(dict(session))
+                if session is not None:
+                    data.update(dict(session))
                 if hasattr(func, "__apidoc__"):
                     data.update(func.__apidoc__.get("responses"))
 
@@ -82,7 +85,7 @@ class Logger:
                     "user_name": data.get("username"),
                     "user_rights": data.get("rights"),
                     "function_name": func.__name__,
-                    "function_description": re.sub(r'\s+', ' ', str(func.__doc__).replace('\n', '')).replace(' ', '', 1),
+                    "function_description": re.sub(r'\s+', ' ', str(func.__doc__).replace('\n', '')).replace(' ', '', 1)
                 }
                 try:
                     result = func(*args, **kwargs)
@@ -101,8 +104,13 @@ class Logger:
                     return result
 
                 except Exception as e:
+                    if isinstance(e, HTTPException) or isinstance(e, MyException):
+                        message.update(message=e.description, traceback=str(traceback.format_exc(tracing_depth)))
+                        Logger.write_log(**message)
+                        return e, e.code
                     message.update(message="Необработанная ошибка сервера", traceback=str(traceback.format_exc(tracing_depth)))
                     Logger.write_log(**message)
+                    return Exception
 
             return build_log_wrapper
 
